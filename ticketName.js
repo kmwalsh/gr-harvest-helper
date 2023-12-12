@@ -31,6 +31,7 @@ function jiraGetIssueId() {
   let issueId;
   let issueIdMatches = document.title.match(/\[(.*?)]/);
 
+
   if (issueIdMatches) {
     issueId = issueIdMatches[1];
   } else {
@@ -43,15 +44,19 @@ function jiraGetIssueId() {
 }
 
 async function jiraGetIssueTitle(issueId) {
+  let issueLink;
+
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
+
+  issueLink = document.querySelector('.issue-link').getAttribute('data-issue-key');
 
   return await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
     headers: { 'Content-Type': 'application/json' },
   })
     .then((response) => response.json())
     .then((data) => {
-      return data.fields.summary;
+      return '[' + issueLink + ']' + ' ' + data.fields.summary;
     });
 }
 
