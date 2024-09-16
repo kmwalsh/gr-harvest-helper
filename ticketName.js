@@ -49,7 +49,7 @@ async function jiraGetIssueTitle(issueId) {
   const protocol = window.location.protocol;
   const hostname = window.location.hostname;
 
-  issueLink = document.querySelector('.issue-link').getAttribute('data-issue-key');
+  issueLink = document.querySelector('a[data-testid="issue.views.issue-base.foundation.breadcrumbs.current-issue.item"] span')?.textContent;
 
   return await fetch(protocol + '//' + hostname + '/rest/api/2/issue/' + issueId, {
     headers: { 'Content-Type': 'application/json' },
